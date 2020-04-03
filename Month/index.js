@@ -23,18 +23,9 @@ export default class Month extends Component {
     this._getMonthText = this._getMonthText.bind(this);
   }
   static I18N_MAP = {
-    'zh': [
-      '一月', '二月', '三月', '四月', '五月', '六月',
-      '七月', '八月', '九月', '十月', '十一月', '十二月'
-    ],
-    'jp': [
-      '一月', '二月', '三月', '四月', '五月', '六月',
-      '七月', '八月', '九月', '十月', '十一月', '十二月'
-    ],
-    'en': [
-      'January', 'February', 'March', 'April', 'May', 'June',
-      'July', 'August', 'September', 'October', 'November', 'December'
-    ]
+    'es': ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre'],
+		'en': ["January","February","March","April","May","June","July","August","September","October","November","December"]
+    
   }
   _getMonthText () {
     const {
@@ -58,10 +49,10 @@ export default class Month extends Component {
     let dayList;
     let month = date.month();
     let weekday = date.isoWeekday();
-    if (weekday === 7) {
+    if (weekday === 1) {
       dayList = [];
     } else {
-      dayList = new Array(weekday).fill({
+      dayList = new Array(weekday - 1).fill({
         empty: date.clone().subtract(1, 'h')
       });
     }
@@ -74,11 +65,11 @@ export default class Month extends Component {
     date.subtract(1, 'days');
     weekday = date.isoWeekday();
     if (weekday === 7) {
-      return dayList.concat(new Array(6).fill({
+      return dayList.concat(new Array(7).fill({
         empty: date.clone().hour(1)
       }));
     }
-    return dayList.concat(new Array(Math.abs(weekday - 6)).fill({
+    return dayList.concat(new Array(7 - weekday).fill({
       empty: date.clone().hour(1)
     }));
   }
